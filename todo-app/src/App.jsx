@@ -50,7 +50,7 @@ const deleteTask = useCallback((id) => {
     <ul className='mt-4'>
       {
         tasks.map((t) => (
-          <li key = {t.id} className='flex items-center mb-2'>
+          <li key = {t.id} className='flex items-center gap-2 mb-2'>
             <span className= {`${t.done ? "line-through text-gry-500" : ""} cursor-pointer`}
             onClick={() => toggleTask(t.id)}>
               {t.text}
