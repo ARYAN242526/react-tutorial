@@ -105,7 +105,7 @@ export class Service{
                 file
             )
         } catch (error) {
-            console.log("Appwrite error :: uploadFile :: error" , error);
+            console.log("Appwrite error :: uploadFile :: error" , error.message);
             return false  
         }
     }
@@ -123,8 +123,8 @@ export class Service{
         }
     }
 
-    getFilePreview(fileId){
-        return this.bucket.getFilePreview(
+   getFileView(fileId){
+        return this.bucket.getFileView(
             config.appwriteBucketId,
             fileId
         )
