@@ -124,6 +124,9 @@ export class Service{
     }
 
    getFileView(fileId){
+    if (!fileId) {
+        throw new Error("fileId is required but was not provided.");
+    }
         return this.bucket.getFileView(
             config.appwriteBucketId,
             fileId
