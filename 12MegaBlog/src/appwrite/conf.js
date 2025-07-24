@@ -71,12 +71,12 @@ export class Service{
 
     async getPost(slug){
         try {
-            await this.databases.getDocument(
+           const post =  await this.databases.getDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug
             )
-            return true
+            return post;
         } catch (error) {
             console.log("Appwrite error :: getPost :: error" , error);
             return false
@@ -123,14 +123,13 @@ export class Service{
         }
     }
 
-   getFileView(fileId){
+    getFileView(fileId){
     if (!fileId) {
         throw new Error("fileId is required but was not provided.");
     }
-        return this.bucket.getFileView(
-            config.appwriteBucketId,
-            fileId
-        )
+    
+     return this.bucket.getFileView(config.appwriteBucketId , fileId);
+    
     }
 }
 

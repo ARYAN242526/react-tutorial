@@ -14,15 +14,20 @@ export default function Post() {
 
     const isAuthor = post && userData ? post.userId === userData.$id : false;
 
+
     useEffect(() => {
         if (slug) {
             appwriteService.getPost(slug).then((post) => {
-                if (post) setPost(post);
+                if (post){
+                    setPost(post);
+                }
                 else navigate("/");
             });
         } else navigate("/");
     }, [slug, navigate]);
 
+
+    
     const deletePost = () => {
         appwriteService.deletePost(post.$id).then((status) => {
             if (status) {
@@ -31,16 +36,20 @@ export default function Post() {
             }
         });
     };
+    const imageUrl = post?.featuredImage ? appwriteService.getFileView(post.featuredImage) : null;
 
     return post ? (
         <div className="py-8">
             <Container>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
-                    <img
-                        src={appwriteService.getFileView(post.featuredImage)}
-                        alt={post.title}
-                        className="rounded-xl"
-                    />
+                        {imageUrl && (
+                            <img
+                            src={imageUrl}
+                            alt={post.title}
+                            className="rounded-xl"
+                            />
+                        )}
+                    
 
                     {isAuthor && (
                         <div className="absolute right-6 top-6">
@@ -59,7 +68,7 @@ export default function Post() {
                     <h1 className="text-2xl font-bold">{post.title}</h1>
                 </div>
                 <div className="browser-css">
-                    {parse(post.content)}
+                    {typeof post.content === "string" ? parse(post.content) : null}
                     </div>
             </Container>
         </div>
